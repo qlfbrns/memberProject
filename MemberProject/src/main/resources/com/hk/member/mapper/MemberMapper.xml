@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hk.member.mapper.MemberMapper">
+<select id="memberList" resultType="com.hk.member.vo.Member">
+<!-- id는 메소드명 resultType는 결과를 받을 저장소 네임스페이스는 풀클래스 -->
+select * from members order by mno
+</select>
+
+<insert id="memberRegister">
+	insert into members (mno,email,pwd,mname,cre_date,mod_date) 
+	values (MEMBER.nextval, #{email}, #{pwd}, #{mname}, sysdate, sysdate)
+</insert>
+
+<select id="memberGetOne" resultType="com.hk.member.vo.Member" parameterType="int">
+select * from members where mno=#{mno}
+</select>
+
+<update id="memberUpdate">
+	update members set email = #{email}, pwd=#{pwd}, mname=#{mname}, mod_date=sysdate where mno=#{mno}
+</update>
+
+<delete id="memberDelete">
+	delete from members where mno=#{mno}
+</delete>
+
+<select id="exist" resultType="com.hk.member.vo.Member">
+	select * from members where email=#{email} and pwd=#{pwd}
+</select>
+
+</mapper>
